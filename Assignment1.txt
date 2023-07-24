@@ -1,0 +1,56 @@
+package controller;
+
+import java.util.Arrays;
+
+public class FindIntersection {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int arr1[]= {3,2,11,4,6,7};
+		int arr2[]= {1,2,8,4,9,7};
+		int[] arr3 = {14,12,13,11,15,14,18,16,17,19,18,17,20};
+		//Printing intersection
+		System.out.println("Printing Identical values");
+		for(int i=0;i<arr1.length;i++)
+		{
+			for(int j=0;j<arr2.length;j++)
+			{
+				if(arr1[i]==arr2[j])
+				{
+					System.out.println(arr1[i]);
+				}
+			}
+		}
+		//Printing Duplicates
+		System.out.println("Printing Duplicates");
+		Arrays.sort(arr3);
+		for(int i=0;i<arr3.length-1;i++)
+		{
+			if(arr3[i]==arr3[i+1])
+			{
+				System.out.println(arr3[i]);
+			}
+		}
+        //Printing missing number
+		System.out.println("Printing Missing Number");
+		int[] arr4 = {1,2,3,4,7,6,8};
+		Arrays.sort(arr4);
+		int j=0;
+		for(int i=arr4[j];i<arr4.length-1;i++)
+		{
+			if(arr4[i-1]!=i)
+			{
+				System.out.println(i);
+			}
+			
+		}
+		j++;
+		
+		//Printing second largest
+		int[] data = {3,2,11,4,6,7};
+		Arrays.sort(data);
+		int length=data.length;
+		System.out.println("Second largest is "+data[length-2]);
+	}
+
+}
