@@ -1,0 +1,46 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class CreateLead {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		ChromeDriver driver=new ChromeDriver(); 
+		driver.get("http://leaftaps.com/opentaps/control/login");
+		driver.manage().window().maximize();
+		
+		//username
+		driver.findElement(By.id("username")).sendKeys("demosalesmanager");
+		//password
+		WebElement password=driver.findElement(By.id("password"));
+		password.sendKeys("crmsfa");//CRM/SFA
+		
+        //login button
+		driver.findElement(By.className("decorativeSubmit")).click();
+		//link
+		driver.findElement(By.linkText("CRM/SFA")).click();
+		//Leads
+		driver.findElement(By.linkText("Leads")).click();
+		//Create Lead
+		driver.findElement(By.linkText("Create Lead")).click();
+		//createLeadForm_companyName
+		driver.findElement(By.id("createLeadForm_companyName")).sendKeys("TestLeaf");
+		//createLeadForm_firstNameLocal
+		driver.findElement(By.id("createLeadForm_firstName")).sendKeys("Sowbaghya");
+		//createLeadForm_lastNameLocal
+		driver.findElement(By.id("createLeadForm_lastName")).sendKeys("Padmanabhan");
+		//createLeadForm_departmentName
+		driver.findElement(By.id("createLeadForm_departmentName")).sendKeys("IT");
+		//createLeadForm_description
+		driver.findElement(By.id("createLeadForm_description")).sendKeys("Software Testing");
+		//createLeadForm_primaryEmail
+		driver.findElement(By.id("createLeadForm_primaryEmail")).sendKeys("sowbaghyahhh@gmail.com");
+		//submitButton
+		driver.findElement(By.name("submitButton")).click();
+		//title
+		String title=driver.getTitle();
+		System.out.println(title);
+	}
+
+}
