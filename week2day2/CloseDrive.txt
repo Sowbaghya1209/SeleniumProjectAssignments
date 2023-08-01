@@ -1,0 +1,29 @@
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class CloseDrive {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		ChromeDriver driver=new ChromeDriver(); 
+		driver.get("https://acme-test.uipath.com/login");
+		driver.manage().window().maximize();
+		
+		//username
+		driver.findElement(By.id("email")).sendKeys("kumar.testleaf@gmail.com");
+		//password
+		WebElement password=driver.findElement(By.id("password"));
+		password.sendKeys("leaf@12");//CRM/SFAs
+		//driver.findElement(By.xpath("//input[@value='1']")).click();
+		driver.findElement(By.xpath("//button[@type='submit']")).click();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+		driver.findElement(By.linkText("Log Out")).click();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+		driver.close();
+
+	}
+
+}

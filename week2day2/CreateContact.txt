@@ -1,0 +1,60 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class CreateContact {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		ChromeDriver driver=new ChromeDriver(); 
+		driver.get("http://leaftaps.com/opentaps/control/login");
+		driver.manage().window().maximize();
+		
+		//username
+		driver.findElement(By.id("username")).sendKeys("demosalesmanager");
+		//password
+		WebElement password=driver.findElement(By.id("password"));
+		password.sendKeys("crmsfa");
+		driver.findElement(By.className("decorativeSubmit")).click();
+		//link
+				driver.findElement(By.linkText("CRM/SFA")).click();
+				//Contacts
+				driver.findElement(By.linkText("Contacts")).click();
+				//Create Contact
+				driver.findElement(By.linkText("Create Contact")).click();
+				//firstNameField
+				driver.findElement(By.id("firstNameField")).sendKeys("Sowbaghya");
+				//lastNameField
+				driver.findElement(By.id("lastNameField")).sendKeys("Padmanabhan");
+				//createContactForm_firstNameLocal
+				driver.findElement(By.id("createContactForm_firstNameLocal")).sendKeys("Sow");
+				//createContactForm_lastNameLocal
+				driver.findElement(By.id("createContactForm_lastNameLocal")).sendKeys("padma");
+				//createContactForm_departmentName
+				driver.findElement(By.id("createContactForm_departmentName")).sendKeys("IT");
+				//createContactForm_description
+				driver.findElement(By.id("createContactForm_description")).sendKeys("Software Testing");
+				//createContactForm_primaryEmail
+				driver.findElement(By.id("createContactForm_primaryEmail")).sendKeys("sowbahyuuu@gmail.com");
+				//createContactForm_generalStateProvinceGeoId
+				WebElement city=driver.findElement(By.id("createContactForm_generalStateProvinceGeoId"));
+				Select dy=new Select(city);
+				//New York
+				dy.selectByVisibleText("New York");
+				//smallSubmit
+				driver.findElement(By.className("smallSubmit")).click();
+				//Edit
+				driver.findElement(By.linkText("Edit")).click();
+				//updateContactForm_description
+				driver.findElement(By.id("updateContactForm_description")).clear();
+				//updateContactForm_importantNote
+				driver.findElement(By.id("updateContactForm_importantNote")).sendKeys("Enter Degree");
+				//submitButton
+				driver.findElement(By.xpath("//input[@name='submitButton']")).click();
+				String title=driver.getTitle();
+				System.out.println(title);
+				
+	}
+
+}
