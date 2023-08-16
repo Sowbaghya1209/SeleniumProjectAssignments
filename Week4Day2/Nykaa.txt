@@ -1,0 +1,113 @@
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
+
+public class Nykaa {
+
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+		ChromeDriver driver = new ChromeDriver();
+
+		driver.get("https://www.nykaa.com/");
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+		Actions action;
+		// brands
+		WebElement brand = driver.findElement(By.xpath("//a[text()='brands']"));
+		action = new Actions(driver);
+		action.moveToElement(brand).clickAndHold().perform();
+
+		//// input[@id='brandSearchBox']
+		driver.findElement(By.xpath("//input[@id='brandSearchBox']")).sendKeys("L'Oreal Paris");
+		Thread.sleep(4000);
+		driver.findElement(By.xpath("(//div[@class='css-150nd8c']/a)[1]")).click();
+		System.out.println(driver.getTitle());
+
+		// (//*[name()='svg' and @class='arrow-icon']//*[local-name()='path'])[1]
+
+		action = new Actions(driver);
+		action.scrollByAmount(30000, 30000);
+
+		Thread.sleep(3000);
+		WebElement svg = driver
+				.findElement(By.xpath("(//*[name()='svg' and @class='arrow-icon']//*[local-name()='path'])[1]"));
+		action.click(svg).perform();
+		driver.findElement(By.xpath("//span[text()='customer top rated']")).click();
+		//// a[@id='category']
+		driver.findElement(By.xpath("//a[@id='category']")).click();
+		//// a[text()='hair']
+		WebElement hair = driver.findElement(By.xpath("//a[text()='hair']"));
+		action.moveToElement(hair).clickAndHold().perform();
+
+		driver.findElement(By.xpath("(//a[text()='Shampoo'])[1]")).click();
+		Thread.sleep(3000);
+		System.out.println(driver.getTitle());
+		Actions action1 = new Actions(driver);
+		action1.scrollByAmount(70000, 70000);
+
+		// driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+		// driver.findElement(By.xpath("(//*[name()='svg' and
+		// @class='arrow-icon']//*[local-name()='path'])[5]"));
+
+		Set<String> handles = driver.getWindowHandles();
+
+		List<String> win = new ArrayList<String>(handles);
+
+		driver.switchTo().window(win.get(1));
+
+		WebElement colorP = driver
+				.findElement(By.xpath("(//*[name()='svg' and @class='arrow-icon']//*[local-name()='path'])[5]"));
+		action1.click(colorP).perform();
+		driver.findElement(By.xpath("//span[text()='Color Protection']")).click();
+
+		//// div[@class='product-listing']//a[@class='css-qlopj4']//div[@class='css-xrzmfa']
+		List<WebElement> findElements = driver.findElements(
+				By.xpath("//div[@class='product-listing']//a[@class='css-qlopj4']//div[@class='css-xrzmfa']"));
+		String loreal = null;
+		for (WebElement element : findElements) {
+			loreal = element.getText();
+			// System.out.println(loreal);
+			if (loreal.contains("L'Oreal Paris Colour Protect Shampoo")) {
+				element.click();
+			}
+		}
+		Set<String> shampooSet = driver.getWindowHandles();
+
+		List<String> list = new ArrayList<String>(shampooSet);
+
+		driver.switchTo().window(list.get(2));
+		// select[@title='SIZE']
+		WebElement size = driver.findElement(By.xpath("//select[@title='SIZE']"));
+		Select ml = new Select(size);
+		// New York
+		ml.selectByVisibleText("180ml");
+
+		// (//div[@class='css-1d0jf8e']/span)[2]
+		System.out.println("MRP: " + driver.findElement(By.xpath("(//div[@class='css-1d0jf8e']/span)[2]")).getText());
+
+		driver.findElement(By.xpath("(//button[@type='button']//span[text()='Add to Bag'])[1]")).click();
+
+		action = new Actions(driver);
+		// action.scrollByAmount(30000, 30000);
+
+		Thread.sleep(3000);
+
+		WebElement bag = driver
+				.findElement(By.xpath("//button[@class='css-aesrxy']//*[name()='svg']//*[local-name()='path']"));
+		action.click(bag).perform();
+		driver.switchTo().frame(driver.findElement(By.xpath("//div[@id='portal-root']//iframe")));
+		System.out.println(
+				"Grand Total: " + driver.findElement(By.xpath("//div[@class='css-15py5ir e25lf6d2']/span")).getText());
+		//// span[text()='Proceed']
+		driver.findElement(By.xpath("//span[text()='Proceed']")).click();
+
+	}
+}
