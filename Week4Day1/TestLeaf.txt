@@ -1,0 +1,58 @@
+package alertExample;
+
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.devtools.v109.page.model.WindowOpen;
+
+public class TestLeaf {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		ChromeDriver driver = new ChromeDriver();
+
+		driver.get("https://leafground.com/window.xhtml;jsessionid=node0ohpw87cjok1dz9p1fgudvj6l12019.node0");
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+		driver.findElement(By.xpath("//span[text()='Open']")).click();
+		Set<String> handles = driver.getWindowHandles();
+
+		List<String> win = new ArrayList<String>(handles);
+		driver.switchTo().window(win.get(1));
+		System.out.println(driver.getTitle());
+		driver.switchTo().window(win.get(1)).close();
+		driver.switchTo().window(win.get(0));
+		//span//Close Windows
+		driver.findElement(By.xpath("//span[text()='Close Windows']")).click();
+		Set<String> close = driver.getWindowHandles();
+
+		List<String> winClose = new ArrayList<String>(close);
+		for(int i=1;i<winClose.size();i++)
+		{
+			driver.switchTo().window(winClose.get(i)).close();
+		}
+		driver.switchTo().window(winClose.get(0));
+		//Open Multiple
+		driver.findElement(By.xpath("//span[text()='Open Multiple']")).click();
+		Set<String> open = driver.getWindowHandles();
+
+		List<String> winOpen = new ArrayList<String>(open);
+		int count=0;
+		for(int i=1;i<winOpen.size();i++)
+		{
+			driver.switchTo().window(winOpen.get(i)).close();
+			count++;
+		}
+		//System.out.println(winOpen.size());
+		System.out.println("Count: "+count);
+		//Open with delay
+		driver.switchTo().window(winOpen.get(0));
+		driver.findElement(By.xpath("//span[text()='Open with delay']")).click();
+
+	}
+
+}
