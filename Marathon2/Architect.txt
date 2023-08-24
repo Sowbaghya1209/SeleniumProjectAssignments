@@ -51,6 +51,7 @@ public class ArchitectCertifications {
 
 		action.moveToElement(certificate).click().perform();
 		driver.findElement(By.xpath("(//div[@class='roleMenu-item_text'])[2]")).click();
+		System.out.println(driver.findElement(By.xpath("//div[@class='slds-container--center slds-container--medium slds-p-vertical--large']//div")).getText());
 		driver.findElement(By.xpath("//a[text()='Application Architect']")).click();
 		List<WebElement> findElements = driver.findElements(By.xpath(
 				"(//div[@class='slds-container--center slds-container--x-large slds-p-top--small'])[1]//div[@class='credentials-card ']//div[@class='credentials-card_title']"));
